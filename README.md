@@ -1,85 +1,95 @@
-🚨 Controle de Alertas
+# 🚨 Controle de Alertas
 
-Sistema web para registro, controle e análise de alertas operacionais, com controle automático de encerramento, histórico estruturado e exportação de dados.
+<p align="center">
+Sistema web para <strong>registro, controle e análise de alertas operacionais</strong>, 
+com encerramento automático, rastreabilidade cronológica e exportação de dados.
+</p>
 
-🔗 Acesse o sistema:
-👉 https://pedroandradeoriginal.github.io/controle_alertas/
+<p align="center">
+🔗 <a href="https://pedroandradeoriginal.github.io/controle_alertas/" target="_blank">
+Acessar Sistema Online
+</a>
+</p>
 
-📌 Sobre o Projeto
+---
 
-O Controle de Alertas foi desenvolvido para gerenciar eventos classificados como:
+## 📌 Sobre o Projeto
 
-🔴 Vermelho
+O **Controle de Alertas** foi desenvolvido para gerenciar eventos operacionais classificados como:
 
-🟡 Amarelo
+- 🔴 **Vermelho**
+- 🟡 **Amarelo**
+- 🟢 **Verde**
 
-🟢 Verde
+O sistema garante:
 
-O sistema garante rastreabilidade completa, impedindo sobreposição de alertas e mantendo integridade cronológica dos registros.
+- ✔ Integridade cronológica  
+- ✔ Encerramento automático de eventos  
+- ✔ Rastreabilidade completa  
+- ✔ Controle preciso de data e hora  
 
-⚙️ Regras de Negócio
+---
 
-Alertas vermelhos e amarelos iniciam um evento.
+## ⚙️ Regras de Negócio
 
-Um alerta verde encerra automaticamente o alerta ativo anterior.
+- Alertas **vermelhos e amarelos iniciam** um evento.
+- Um alerta **verde encerra automaticamente** o alerta ativo anterior.
+- Eventos **não se sobrepõem**.
+- Um alerta termina exatamente quando o próximo começa.
+- Controle rigoroso de timestamp.
+- Correção aplicada para evitar inconsistência de **timezone na exportação Excel**.
 
-Eventos não se sobrepõem.
+---
 
-Um alerta termina exatamente quando o próximo começa.
+## 🗄 Banco de Dados
 
-Controle rigoroso de data e hora para evitar inconsistências.
+O sistema utiliza banco relacional SQL (PostgreSQL via Supabase).
 
-Correção aplicada para evitar erro de exportação que alterava a data (timezone).
+### 📋 Estrutura da Tabela `alertas`
 
-🗄 Banco de Dados
+| Campo        | Tipo               | Descrição                         |
+|--------------|-------------------|-----------------------------------|
+| `id`         | SERIAL / IDENTITY | Identificador único               |
+| `data`       | DATE              | Data do evento                   |
+| `hora_inicio`| TIMESTAMP         | Início do alerta                 |
+| `hora_fim`   | TIMESTAMP         | Encerramento do evento           |
+| `tipo`       | VARCHAR           | vermelho / amarelo / verde       |
+| `status`     | VARCHAR           | ativo / encerrado                |
 
-O sistema utiliza banco de dados relacional SQL para armazenamento persistente.
+### 🔎 Observações Técnicas
 
-📋 Tabela alertas
-Campo	Tipo	Descrição
-id	SERIAL / IDENTITY	Identificador único
-data	DATE	Data do evento
-hora_inicio	TIMESTAMP	Início do alerta
-hora_fim	TIMESTAMP	Encerramento
-tipo	VARCHAR	vermelho / amarelo / verde
-status	VARCHAR	ativo / encerrado
-Observações Técnicas
+- Tratamento para evitar `NULL` em `hora_inicio`
+- Encerramento automático via atualização do registro anterior
+- Testes estruturais com `TRUNCATE ... RESTART IDENTITY`
+- Ajuste de timezone na exportação para Excel
 
-Controle de NULL em hora_inicio
+---
 
-Encerramento automático via atualização do registro anterior
+## 📊 Funcionalidades
 
-Testes realizados com TRUNCATE ... RESTART IDENTITY
+- 📌 Registro de alertas com data e hora  
+- 🔁 Encerramento automático via alerta verde  
+- 📄 Paginação de registros  
+- 📊 Dashboard com gráfico dinâmico  
+- 📥 Exportação para Excel  
+- 🕒 Relógio em tempo real  
+- 📚 Histórico estruturado para análise  
 
-Ajuste de timezone na exportação Excel
+---
 
-📊 Funcionalidades
+## 🛠 Tecnologias Utilizadas
 
-Registro de alertas com data e hora
+- HTML5  
+- CSS3  
+- JavaScript  
+- Supabase (PostgreSQL)  
+- GitHub Pages (deploy do front-end)
 
-Encerramento automático via alerta verde
+---
 
-Paginação da tabela
+## 📁 Estrutura do Projeto
 
-Gráfico dinâmico
-
-Exportação para Excel
-
-Histórico estruturado
-
-🛠 Tecnologias
-
-HTML5
-
-CSS3
-
-JavaScript
-
-SQL
-
-GitHub Pages (deploy front-end)
-
-📁 Estrutura do Projeto
+```bash
 controle_alertas/
 │
 ├── assets/
@@ -94,15 +104,3 @@ controle_alertas/
 │   └── supabaseClient.js
 │
 └── index.html
-
-🚀 Como Executar Localmente
-
-Clone o repositório:
-
-git clone https://github.com/pedroandradeoriginal/controle_alertas.git
-
-Abra o index.html no navegador.
-
-👨‍💻 Autor
-
-Pedro Andrade
